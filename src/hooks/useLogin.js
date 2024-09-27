@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInterceptor from "../data/services/axiosInterceptor";
 
-export default function useAuth() {
+export default function useLogin() {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [token, setToken] = useState(null);
