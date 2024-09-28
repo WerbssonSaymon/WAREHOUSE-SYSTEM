@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function menuFooter() {
+export default function signature() {
   return (
     <div className="p-4 text-center text-slate-300 absolute bottom-0">
       <p>

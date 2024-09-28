@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function menuButton(params) {
+export default function linkMenu(params) {
   return (
     <Link
       to={params.route}
