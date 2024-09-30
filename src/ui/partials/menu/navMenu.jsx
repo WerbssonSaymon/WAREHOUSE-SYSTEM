@@ -8,7 +8,7 @@ import Signature from "../../components/signature";
 
 export default function navMenu() {
   return (
-    <nav className="space-y-2">
+    <nav className="space-y-2 mt-3">
       <LinkMenu text="My Warehouse" route="/warehouse">
         <TbMessageChatbot />
       </LinkMenu>

@@ -1,5 +1,6 @@
 import React from 'react'
 import { GiHamburgerMenu } from "react-icons/gi";
+import Profile from '../../components/profile'
 
 export default function navbar({toggleMenu}) {
   return (
@@ -10,9 +11,7 @@ export default function navbar({toggleMenu}) {
       >
         <GiHamburgerMenu/>
       </button>
-      <span>
-        Logo
-      </span>
+      <Profile/>
 </nav>
   )
 }

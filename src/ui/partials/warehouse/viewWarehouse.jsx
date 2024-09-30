@@ -1,9 +1,7 @@
 import React from "react";
-import { Button } from "@radix-ui/themes";
 import usePutWarehouse from "../../../hooks/usePutWarehouse";
 import useDeleteWarehouse from "../../../hooks/useDeleteWarehouse";
-import { FaPencilAlt } from "react-icons/fa";
-import { ImBin } from "react-icons/im";
+import AreaOptionsButton from "./AreaOptionsButton";
 
 export default function ViewWarehouse({
   warehouses,
@@ -64,31 +62,16 @@ export default function ViewWarehouse({
               )}
             </td>
             <td className="py-2 px-4 border-b border-b-gray-50">
-              {editWarehouse?.id === warehouse.id ? (
-                <Button
-                  className="!bg-green-500 hover:!bg-green-600 !p-1 !text-white"
-                  onClick={handleUpdate}
-                >
-                  Salvar
-                </Button>
-              ) : (
-                <Button
-                  className="!bg-amber-400 hover:!bg-amber-500 !p-1"
-                  onClick={() => handleEdit(warehouse)}
-                >
-                  <FaPencilAlt />
-                  Editar
-                </Button>
-              )}
-            </td>
-            <td className="py-2 px-4 border-b border-b-gray-50">
-              <Button
-                className="!bg-red-500 hover:!bg-red-600 !p-1 !text-white"
-                onClick={() => deleteWarehouse(warehouse.id)}
-              >
-                <ImBin />
-                Excluir
-              </Button>
+              <AreaOptionsButton
+                warehouse={warehouse}
+                deleteWarehouse={deleteWarehouse}
+                handleEdit={handleEdit} 
+                handleUpdate={() => handleUpdate(warehouse.id)}
+                updatedDescription={updatedDescription}
+                updateType={updateType}
+                setUpdatedDescription={setUpdatedDescription}
+                setUpdateType={setUpdateType}
+              />
             </td>
           </tr>
         ))

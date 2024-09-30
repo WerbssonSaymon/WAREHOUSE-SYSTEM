@@ -1,8 +1,8 @@
 import React from "react";
-import Title from "../../components/title";
 import ToggleButton from "../../components/toggleButton";
 import { GrClose } from "react-icons/gr";
 import NavMenu from "./navMenu";
+import Logo from '../../components/logo'
 
 export default function menu({ isMenuOpen, toggleMenu }) {
   return (
@@ -12,10 +12,12 @@ export default function menu({ isMenuOpen, toggleMenu }) {
           isMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <Title text="Warehouse Menu" />
+       <div className="p-4 flex justify-between">
+       <Logo/>
         <ToggleButton toggleMenu={toggleMenu}>
           <GrClose />
         </ToggleButton>
+       </div>
         <NavMenu />
       </aside>
     </div>
