@@ -1,9 +1,9 @@
 import React from "react";
 import HeaderTableWarehouse from "./headerTableWarehouse";
 import ViewWarehouse from "./viewWarehouse";
-import TableWarehouse from "./tableWarehouse";
 import useGetWarehouse from "../../../hooks/useGetWarehouse";
 import { updateWarehouse, deleteWarehouse } from "../../../data/services/warehouseService";
+
 export default function boxWarehouse() {
  
   const { warehouses, setWarehouses } = useGetWarehouse();
@@ -22,7 +22,6 @@ export default function boxWarehouse() {
       <HeaderTableWarehouse />
       <hr></hr>
       <div className="overflow-hidden">
-        <TableWarehouse />
 
         <table className="w-full min-w-[540px]">
           <ViewWarehouse

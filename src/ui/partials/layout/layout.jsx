@@ -13,10 +13,10 @@ export default function Layout({ children }) {
   return (
     <div className="w-full h-full flex justify-center items-center">
       <Navbar toggleMenu={toggleMenu} />
-      <div className="w-1/6 h-[100vh] flex justify-center items-center">
+      
         <Menu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-      </div>
-      <Section className="bg-slate-200 w-5/6 h-[100vh] flex justify-center items-start">
+      
+      <Section className="bg-slate-200 w-full h-[100vh] flex justify-center items-start">
         {children}
       </Section>
     </div>

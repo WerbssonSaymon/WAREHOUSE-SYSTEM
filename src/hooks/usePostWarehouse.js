@@ -8,10 +8,8 @@ export default function usePostWarehouse() {
   const [tipo, setTipo] = useState("");
 
   const apiWarehouse = import.meta.env.VITE_API_WAREHOUSE;
-  
   const navigate = useNavigate()
   const axios = axiosInterceptor(navigate)
-  
 
   const token = JSON.parse(localStorage.getItem("token"));
 

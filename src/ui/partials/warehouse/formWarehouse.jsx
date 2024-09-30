@@ -11,6 +11,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { FaWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import usePostWarehouse from "../../../hooks/usePostWarehouse";
+import SelectTypeInterprise from "../../components/selectTypeInterprise";
 
 export default function formWarehouse() {
   const {
@@ -22,6 +23,12 @@ export default function formWarehouse() {
     setTipo,
     cadastrarAlmoxarifado,
   } = usePostWarehouse();
+
+  const clearForm = () => {
+    setEmpresaId("")
+    setDescricao("")
+    setTipo("")
+  }
 
   return (
     <Container p="3" className="flex flex-col justify-center items-center">
@@ -81,14 +88,7 @@ export default function formWarehouse() {
           <Text as="div" size="2" color="gray" weight="bold">
             Tipo da empresa
           </Text>
-          <TextField.Root
-            variant="surface"
-            type="number"
-            size="3"
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
-            required
-          />
+          <SelectTypeInterprise tipo={tipo} setTipo={setTipo}/>
         </Box>
       </Flex>
       <Flex direction="row" py="3" gap="3" className="bg-white shadow-lg">
@@ -99,7 +99,7 @@ export default function formWarehouse() {
           </Button>
         </Box>
         <Box>
-          <Button className="!bg-red-500 !text-white hover:!bg-red-600">
+          <Button onClick={clearForm} className="!bg-red-500 !text-white hover:!bg-red-600">
             <FaWindowClose className="text-xl font-bold" />
             Limpar
           </Button>

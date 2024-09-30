@@ -21,67 +21,72 @@ export default function ViewWarehouse({
   const { deleteWarehouse } = useDeleteWarehouse(onDeleteWarehouse);
 
   return (
-    <tbody>
-      {warehouses.length > 0 ? (
-        warehouses.map((warehouse) => (
-          <tr key={warehouse.id}>
-            <td className="py-2 px-4 border-b border-b-gray-50">
-              <div className="flex items-center">
-                <a
-                  href="#"
-                  className="text-gray-600 text-sm font-medium hover:text-blue-500 ml-2 truncate"
-                >
-                  {warehouse.id}
-                </a>
-              </div>
-            </td>
-            <td className="py-2 px-4 border-b border-b-gray-50">
-              {editWarehouse?.id === warehouse.id ? (
-                <input
-                  type="text"
-                  value={updatedDescription}
-                  onChange={(e) => setUpdatedDescription(e.target.value)}
+    <table className="min-w-full table-auto">
+      <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <tr>
+          <th scope="col" className="px-4 py-4 text-left">ID</th>
+          <th scope="col" className="px-4 py-3 text-left">Descrição</th>
+          <th scope="col" className="px-4 py-3 text-left">Tipo</th>
+          <th scope="col" className="px-4 py-3 text-left">
+            <span className="sr-only">Ações</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {warehouses.length > 0 ? (
+          warehouses.map((warehouse) => (
+            <tr key={warehouse.id} className="border-b dark:border-gray-700">
+              <td className="py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                {warehouse.id}
+              </td>
+              <td className="py-2 px-4">
+                {editWarehouse?.id === warehouse.id ? (
+                  <input
+                    type="text"
+                    value={updatedDescription}
+                    onChange={(e) => setUpdatedDescription(e.target.value)}
+                    className="w-full px-2 py-1 text-sm"
+                  />
+                ) : (
+                  <div className="w-64 text-left text-sm font-medium">
+                    {warehouse.descricao}
+                  </div>
+                )}
+              </td>
+              <td className="py-2 px-4">
+                {editWarehouse?.id === warehouse.id ? (
+                  <input
+                    type="text"
+                    value={updateType}
+                    onChange={(e) => setUpdateType(e.target.value)}
+                    className="w-full px-2 py-1 text-sm"
+                  />
+                ) : (
+                  <div className="text-sm font-medium">{warehouse.tipo}</div>
+                )}
+              </td>
+              <td className="py-2 px-4">
+                <AreaOptionsButton
+                  warehouse={warehouse}
+                  deleteWarehouse={deleteWarehouse}
+                  handleEdit={handleEdit}
+                  handleUpdate={() => handleUpdate(warehouse.id)}
+                  updatedDescription={updatedDescription}
+                  updateType={updateType}
+                  setUpdatedDescription={setUpdatedDescription}
+                  setUpdateType={setUpdateType}
                 />
-              ) : (
-                <span className="text-[13px] font-medium text-gray-400">
-                  {warehouse.descricao}
-                </span>
-              )}
-            </td>
-            <td className="py-2 px-4 border-b border-b-gray-50">
-              {editWarehouse?.id === warehouse.id ? (
-                <input
-                  type="text"
-                  value={updateType}
-                  onChange={(e) => setUpdateType(e.target.value)}
-                />
-              ) : (
-                <span className="text-[13px] font-medium text-gray-400">
-                  {warehouse.tipo}
-                </span>
-              )}
-            </td>
-            <td className="py-2 px-4 border-b border-b-gray-50">
-              <AreaOptionsButton
-                warehouse={warehouse}
-                deleteWarehouse={deleteWarehouse}
-                handleEdit={handleEdit} 
-                handleUpdate={() => handleUpdate(warehouse.id)}
-                updatedDescription={updatedDescription}
-                updateType={updateType}
-                setUpdatedDescription={setUpdatedDescription}
-                setUpdateType={setUpdateType}
-              />
+              </td>
+            </tr>
+          ))
+        ) : (
+          <tr>
+            <td colSpan="4" className="py-4 text-center">
+              Nenhum almoxarifado encontrado.
             </td>
           </tr>
-        ))
-      ) : (
-        <tr>
-          <td colSpan="3" className="py-2 px-4 text-center">
-            Nenhum almoxarifado encontrado.
-          </td>
-        </tr>
-      )}
-    </tbody>
+        )}
+      </tbody>
+    </table>
   );
 }
