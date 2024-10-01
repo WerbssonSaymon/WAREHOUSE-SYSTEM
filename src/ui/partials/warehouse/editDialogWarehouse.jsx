@@ -22,10 +22,10 @@ export default function editDialogWarehouse({
           }`}
         >
           <Dialog.Title className="text-lg font-medium">
-            Editar Warehouse
+            Editar Almoxarifado
           </Dialog.Title>
           <Dialog.Description className="mt-2 text-sm text-gray-600">
-            Altere os dados do almoxarifado abaixo e clique em "Salvar".
+            Altere os dados e clique em "Salvar" ou aperte "Cancelar" para resetar a edição.
           </Dialog.Description>
 
           <div className="mt-4">

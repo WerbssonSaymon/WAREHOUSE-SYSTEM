@@ -13,9 +13,9 @@ export default function Layout({ children }) {
   return (
     <div className="w-full h-full flex justify-center items-center">
       <Navbar toggleMenu={toggleMenu} />
-      
-        <Menu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-      
+
+      <Menu toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+
       <Section className="bg-slate-200 w-full h-[100vh] flex justify-center items-start">
         {children}
       </Section>

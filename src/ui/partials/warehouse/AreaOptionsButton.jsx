@@ -1,23 +1,39 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
-import EditDialog from './editDialogWarehouse'; 
+import EditDialogWarehouse from "./editDialogWarehouse";
+import AlertDelete from "../../components/alertDelete";
 
-export default function AreaOptionsButton({ warehouse, deleteWarehouse, handleEdit, handleUpdate, updatedDescription, updateType, setUpdatedDescription, setUpdateType }) {
+export default function AreaOptionsButton({
+  warehouse,
+  deleteWarehouse,
+  handleEdit,
+  handleUpdate,
+  updatedDescription,
+  updateType,
+  setUpdatedDescription,
+  setUpdateType,
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
   const openEditDialog = () => {
-    handleEdit(warehouse); 
-    setIsOpen(true); 
+    handleEdit(warehouse);
+    setIsOpen(true);
   };
 
   const handleDialogOpenChange = (open) => {
-    setIsOpen(open); 
+    setIsOpen(open);
+  };
+
+  const confirmDelete = () => {
+    deleteWarehouse(warehouse.id);
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -49,10 +65,9 @@ export default function AreaOptionsButton({ warehouse, deleteWarehouse, handleEd
 
             <li>
               <button
-                data-modal-target="deleteModal"
-                data-modal-toggle="deleteModal"
-                className="!flex !w-full !items-center py-1 !px-4 hover:bg-gray-300 !dark:hover:bg-gray-600 !text-red-500 !dark:hover:text-red-400"
-                onClick={() => deleteWarehouse(warehouse.id)}
+                type="button"
+                className="flex w-full items-center py-1 px-4 hover:bg-gray-300 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400"
+                onClick={() => setIsDeleteModalOpen(true)}
               >
                 <FaTrash className="w-4 h-4 mr-2" />
                 Excluir
@@ -62,7 +77,15 @@ export default function AreaOptionsButton({ warehouse, deleteWarehouse, handleEd
         </div>
       )}
 
-      <EditDialog
+      {isDeleteModalOpen && (
+        <AlertDelete
+          warehouse={warehouse}
+          confirmDelete={confirmDelete}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
+      )}
+
+      <EditDialogWarehouse
         isOpen={isOpen}
         onOpenChange={handleDialogOpenChange}
         updatedDescription={updatedDescription}
