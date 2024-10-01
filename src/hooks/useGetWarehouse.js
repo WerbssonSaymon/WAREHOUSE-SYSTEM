@@ -3,6 +3,7 @@ import axiosInterceptor from "../data/services/axiosInterceptor";
 import { useNavigate } from "react-router-dom";
 
 export default function useGetWarehouse() {
+
   const [warehouses, setWarehouses] = useState([]);
   const apiWarehouse = import.meta.env.VITE_API_WAREHOUSE;
 
@@ -11,7 +12,7 @@ export default function useGetWarehouse() {
 
   useEffect(() => {
     fetchWarehouses();
-  }, [apiWarehouse]);
+  }, [apiWarehouse, warehouses]);
 
   const fetchWarehouses = async () => {
     try {

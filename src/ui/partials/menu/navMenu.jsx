@@ -9,17 +9,17 @@ import Signature from "../../components/signature";
 export default function navMenu() {
   return (
     <nav className="space-y-2 mt-3">
-      <LinkMenu text="My Warehouse" route="/warehouse">
+      <LinkMenu text="Amoxarifado" route="/almoxarifado">
         <TbMessageChatbot />
       </LinkMenu>
-      <LinkMenu text="My Codes">
+      <LinkMenu text="Codigos">
         <FaFileCode />
       </LinkMenu>
       <hr className="my-2 border-gray-500" />
-      <LinkMenu text="My Libraries">
+      <LinkMenu text="Bibliotecas">
         <IoLibraryOutline />
       </LinkMenu>
-      <LinkMenu text="My Frameworks">
+      <LinkMenu text="Ferramentas">
         <SiFramework />
       </LinkMenu>
       <Signature />

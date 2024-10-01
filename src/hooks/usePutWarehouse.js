@@ -12,7 +12,6 @@ export default function usePutWarehouse(onUpdateWarehouse) {
   const axios = axiosInterceptor(navigate)
   
 
-  // Função para atualizar um almoxarifado
   const updateWarehouse = async (updatedData) => {
     try {
       const token = JSON.parse(localStorage.getItem("token"));
@@ -24,38 +23,35 @@ export default function usePutWarehouse(onUpdateWarehouse) {
 
       if (response.status === 200) {
         console.log("Atualização bem-sucedida", response.data);
-        onUpdateWarehouse(updatedData); // Chama a função callback para atualizar a lista
+        if (onUpdateWarehouse) {
+          onUpdateWarehouse(updatedData);
+        } 
       } else {
         console.error("Erro na atualização:", response);
       }
     } catch (error) {
       console.error("Erro ao atualizar almoxarifado:", error);
-      navigate('/')
     }
   };
 
-  // Função para iniciar o modo de edição
   const handleEdit = (warehouse) => {
     setEditWarehouse(warehouse);
     setUpdatedDescription(warehouse.descricao);
     setUpdateType(warehouse.tipo);
   };
 
-  // Função para aplicar as atualizações
   const handleUpdate = () => {
     const updatedData = {
-      ...editWarehouse, // Mantém os dados originais do almoxarifado
+      ...editWarehouse, 
       descricao: updatedDescription,
       tipo: updateType,
     };
 
     updateWarehouse(updatedData);
-    setEditWarehouse(null); // Reseta o modo de edição
+    setEditWarehouse(null); 
   };
 
-  // Retorna as funções e estados necessários para o componente
   return {
-    editWarehouse,
     updatedDescription,
     updateType,
     setUpdatedDescription,

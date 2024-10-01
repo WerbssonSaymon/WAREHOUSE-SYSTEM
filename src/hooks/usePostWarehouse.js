@@ -30,8 +30,7 @@ export default function usePostWarehouse() {
           },
         }
       );
-      console.log("Cadastro realizado com sucesso:", response.data);
-
+      console.log(response.data);
       setEmpresaId("");
       setDescricao("");
       setTipo("");

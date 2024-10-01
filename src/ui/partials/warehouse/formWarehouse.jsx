@@ -44,7 +44,7 @@ export default function formWarehouse() {
           Cadastro de almoxarifado
         </Text>
 
-        <Link to={"/warehouse"} className="text-lg text-sky-600">
+        <Link to={"/almoxarifado"} className="text-lg text-sky-600">
           Voltar
         </Link>
       </Flex>

@@ -71,6 +71,7 @@ export default function AreaOptionsButton({ warehouse, deleteWarehouse, handleEd
         setUpdateType={setUpdateType}
         handleUpdate={handleUpdate}
         warehouse={warehouse}
+        toggleDropdown={toggleDropdown}
       />
     </div>
   );

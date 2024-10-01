@@ -32,7 +32,7 @@ export default function useLogin() {
 
       const myToken = JSON.parse(localStorage.getItem("token"));
       if (myToken) {
-        navigate("/home");
+        navigate("/inicio");
       }
       console.log(myToken);
     } catch (error) {

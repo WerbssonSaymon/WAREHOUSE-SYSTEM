@@ -10,13 +10,14 @@ export default function editDialogWarehouse({
   setUpdateType,
   handleUpdate,
   warehouse,
+  toggleDropdown
 }) {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black opacity-30" />
         <Dialog.Content
-          className={`fixed h-full bg-white p-6 rounded shadow-md w-[400px] top-0 right-0 transform transition-transform duration-300 ease-in-out z-40 ${
+          className={`fixed h-full bg-white p-6 rounded shadow-md w-[400px] top-0 right-0 transform transition-transform duration-500 ease-in-out z-40 ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -49,13 +50,24 @@ export default function editDialogWarehouse({
             </label>
           </div>
 
-          <div className="mt-6 flex justify-end">
+          <div className="mt-6 flex gap-1 justify-end">
+          <button
+              type="button"
+              className="px-4 py-2 text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900"
+              onClick={() => {
+                onOpenChange(false)
+                toggleDropdown(false)
+              }}
+            >
+              Cancelar
+            </button>
             <button
               type="button"
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
               onClick={() => {
                 handleUpdate();
                 onOpenChange(false);
+                toggleDropdown(false)
               }}
             >
               Salvar
@@ -63,7 +75,9 @@ export default function editDialogWarehouse({
           </div>
 
           <Dialog.Close asChild>
-            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+            <button className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={toggleDropdown}
+            >
               X
             </button>
           </Dialog.Close>

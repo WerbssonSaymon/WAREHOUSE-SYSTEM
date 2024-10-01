@@ -12,9 +12,9 @@ export default function index() {
     <BrowserRouter> 
     <Routes>
       <Route path="/" element={<Login />} /> 
-      <Route path="/home" element={<Home />} />
-      <Route path="/warehouse" element={<Warehouse/>}/>
-      <Route path="/warehouse/registration" element={<WarehouseRegistration/>}/>
+      <Route path="/inicio" element={<Home />} />
+      <Route path="/almoxarifado" element={<Warehouse/>}/>
+      <Route path="/almoxarifado/cadastro" element={<WarehouseRegistration/>}/>
       <Route path="*" element={<NotFound/>} /> 
     </Routes>
   </BrowserRouter>

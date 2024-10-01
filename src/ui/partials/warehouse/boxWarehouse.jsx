@@ -9,11 +9,11 @@ export default function boxWarehouse() {
   const { warehouses, setWarehouses } = useGetWarehouse();
 
   const handleUpdateWarehouse = (id, updatedData) => {
-    updateWarehouse(warehouses, setWarehouses, id, updatedData); 
+    updateWarehouse( setWarehouses, id, updatedData); 
   };
 
   const handleDeleteWarehouse = (id) => {
-    deleteWarehouse(warehouses, setWarehouses, id); 
+    deleteWarehouse( setWarehouses, id); 
   };
    
 
