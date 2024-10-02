@@ -22,13 +22,19 @@ export default function viewWarehouse({
 
 
   const [currentPage, setCurrentPage] = useState(1);
-  const amount = 5; 
+  const amount = 7; 
   const totalPages = Math.ceil(warehouses.length / amount);
   const startIndex = (currentPage - 1) * amount;
   const currentWarehouses = warehouses.slice(startIndex, startIndex + amount);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+  const tipoMap = {
+    1: "Estoque",
+    2: "Producao",
+    3: "Quarentena",
   };
 
   return (
@@ -57,7 +63,7 @@ export default function viewWarehouse({
                   </div>
                 </td>
                 <td className="py-2 px-4">
-                  <div className="text-sm font-medium">{warehouse.tipo}</div>
+                  <div className="text-sm font-medium">{tipoMap[warehouse.tipo] || "???????"}</div>
                 </td>
                 <td className="py-2 px-4">
                   <AreaOptionsButton

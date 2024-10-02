@@ -3,6 +3,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import EditDialogWarehouse from "./editDialogWarehouse";
 import AlertDelete from "../../components/alertDelete";
+import FormWarehouse from "./formWarehouse";
 
 export default function AreaOptionsButton({
   warehouse,
@@ -93,9 +94,9 @@ export default function AreaOptionsButton({
         setUpdatedDescription={setUpdatedDescription}
         setUpdateType={setUpdateType}
         handleUpdate={handleUpdate}
-        warehouse={warehouse}
         toggleDropdown={toggleDropdown}
       />
+
     </div>
   );
 }

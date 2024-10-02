@@ -9,8 +9,7 @@ export default function editDialogWarehouse({
   setUpdatedDescription,
   setUpdateType,
   handleUpdate,
-  warehouse,
-  toggleDropdown
+  toggleDropdown,
 }) {
   return (
     <Dialog.Root open={isOpen} onOpenChange={onOpenChange}>
