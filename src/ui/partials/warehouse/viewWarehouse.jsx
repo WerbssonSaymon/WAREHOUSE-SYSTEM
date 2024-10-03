@@ -12,10 +12,8 @@ export default function viewWarehouse({
   const {
     updatedDescription,
     updateType,
-    updateId,
     setUpdatedDescription,
     setUpdateType,
-    setUpdateId,
     handleEdit,
     handleUpdate,
   } = usePutWarehouse(onUpdateWarehouse);
@@ -75,10 +73,8 @@ export default function viewWarehouse({
                     handleUpdate={() => handleUpdate(warehouse.id)}
                     updatedDescription={updatedDescription}
                     updateType={updateType}
-                    updateId={updateId}
                     setUpdatedDescription={setUpdatedDescription}
                     setUpdateType={setUpdateType}
-                    setUpdateId={setUpdateId}
                   />
                 </td>
               </tr>
