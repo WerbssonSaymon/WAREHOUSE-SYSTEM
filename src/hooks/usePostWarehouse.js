@@ -12,6 +12,7 @@ export default function usePostWarehouse() {
   const axios = axiosInterceptor(navigate)
 
   const token = JSON.parse(localStorage.getItem("token"));
+  const userData = JSON.parse(localStorage.getItem("userData"));
 
   async function cadastrarAlmoxarifado(event) {
     event.preventDefault();
@@ -20,7 +21,7 @@ export default function usePostWarehouse() {
       const response = await axios.post(
         `${apiWarehouse}/criar`,
         {
-          empresaId: parseInt(empresaId),
+          empresaId: userData,
           descricao: descricao,
           tipo: parseInt(tipo),
         },

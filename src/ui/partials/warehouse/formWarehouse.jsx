@@ -6,17 +6,14 @@ import { Box } from "@radix-ui/themes";
 
 export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
   const {
-    empresaId,
     descricao,
     tipo,
-    setEmpresaId,
     setDescricao,
     setTipo,
     cadastrarAlmoxarifado,
   } = usePostWarehouse();
 
   const clearForm = () => {
-    setEmpresaId("");
     setDescricao("");
     setTipo("");
   };
@@ -38,15 +35,7 @@ export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
           </Dialog.Description>
 
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700">
-              Id
-              <input
-                type="text"
-                className="mt-1 block w-full p-2 border rounded"
-                value={empresaId}
-                onChange={(e) => setEmpresaId(e.target.value)}
-              />
-            </label>
+            
 
             <label className="block text-sm font-medium text-gray-700">
               Descrição

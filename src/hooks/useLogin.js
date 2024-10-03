@@ -35,9 +35,10 @@ export default function useLogin() {
 
      
       const loginToken = loginResponse.data.data.token;
+      const userData = loginResponse.data.data.usuario.id
       setToken(loginToken);
       localStorage.setItem("token", JSON.stringify(loginToken));
-
+      localStorage.setItem("userData", JSON.stringify(userData));
      
       setLogin("");
       setSenha("");
