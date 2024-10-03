@@ -6,6 +6,7 @@ export default function usePutWarehouse(onUpdateWarehouse) {
   const [editWarehouse, setEditWarehouse] = useState(null);
   const [updatedDescription, setUpdatedDescription] = useState("");
   const [updateType, setUpdateType] = useState("");
+  const [updateId, setUpdateId] = useState("")
   
   const apiWarehouse = import.meta.env.VITE_API_WAREHOUSE;
   const navigate = useNavigate()
@@ -38,11 +39,13 @@ export default function usePutWarehouse(onUpdateWarehouse) {
     setEditWarehouse(warehouse);
     setUpdatedDescription(warehouse.descricao);
     setUpdateType(warehouse.tipo);
+    setUpdateId(warehouse.empresaId);
   };
 
   const handleUpdate = () => {
     const updatedData = {
       ...editWarehouse, 
+      empresaId: updateId,
       descricao: updatedDescription,
       tipo: updateType,
     };
@@ -54,8 +57,10 @@ export default function usePutWarehouse(onUpdateWarehouse) {
   return {
     updatedDescription,
     updateType,
+    updateId,
     setUpdatedDescription,
     setUpdateType,
+    setUpdateId,
     handleEdit,
     handleUpdate,
   };

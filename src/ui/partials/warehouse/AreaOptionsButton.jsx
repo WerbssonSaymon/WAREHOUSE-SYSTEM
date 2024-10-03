@@ -12,8 +12,10 @@ export default function AreaOptionsButton({
   handleUpdate,
   updatedDescription,
   updateType,
+  updateId,
   setUpdatedDescription,
   setUpdateType,
+  setUpdateId,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -91,8 +93,10 @@ export default function AreaOptionsButton({
         onOpenChange={handleDialogOpenChange}
         updatedDescription={updatedDescription}
         updateType={updateType}
+        updateId={updateId}
         setUpdatedDescription={setUpdatedDescription}
         setUpdateType={setUpdateType}
+        setUpdateId={setUpdateId}
         handleUpdate={handleUpdate}
         toggleDropdown={toggleDropdown}
       />

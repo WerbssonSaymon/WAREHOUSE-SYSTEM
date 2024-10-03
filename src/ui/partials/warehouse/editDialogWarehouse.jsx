@@ -6,8 +6,10 @@ export default function editDialogWarehouse({
   onOpenChange,
   updatedDescription,
   updateType,
+  updateId,
   setUpdatedDescription,
   setUpdateType,
+  setUpdateId,
   handleUpdate,
   toggleDropdown,
 }) {
@@ -28,6 +30,17 @@ export default function editDialogWarehouse({
           </Dialog.Description>
 
           <div className="mt-4">
+
+          <label className="block text-sm font-medium text-gray-700">
+              Id
+              <input
+                type="text"
+                className="mt-1 block w-full p-2 border rounded"
+                value={updateId}
+                onChange={(e) => setUpdateId(e.target.value)}
+              />
+            </label>
+
             <label className="block text-sm font-medium text-gray-700">
               Descrição
               <input
