@@ -12,6 +12,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 export default function boxWarehouse() {
   const { warehouses, setWarehouses } = useGetWarehouse();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [currentWarehouse, setCurrentWarehouse] = useState(null); // Novo estado para o almoxarifado atual
 
   const handleUpdateWarehouse = (id, updatedData) => {
     updateWarehouse(setWarehouses, id, updatedData);
@@ -19,6 +20,11 @@ export default function boxWarehouse() {
 
   const handleDeleteWarehouse = (id) => {
     deleteWarehouse(setWarehouses, id);
+  };
+
+  const handleEditWarehouse = (warehouse) => {
+    setCurrentWarehouse(warehouse); // Define o almoxarifado atual para edição
+    setIsDialogOpen(true); // Abre o diálogo
   };
 
   return (
@@ -29,6 +35,9 @@ export default function boxWarehouse() {
           <FaCirclePlus />
           Adicionar
         </Button>
+        <Button onClick={() => handleEditWarehouse(/* Almoxarifado selecionado */)}>
+          Editar
+        </Button>
       </div>
       <hr />
       <div className="overflow-hidden">
@@ -37,6 +46,7 @@ export default function boxWarehouse() {
             warehouses={warehouses}
             onUpdateWarehouse={handleUpdateWarehouse}
             onDeleteWarehouse={handleDeleteWarehouse}
+            onEditWarehouse={handleEditWarehouse} // Passa a função de edição
           />
         </table>
       </div>
@@ -44,6 +54,8 @@ export default function boxWarehouse() {
       <FormWarehouse
         isDialogOpen={isDialogOpen}
         setIsDialogOpen={setIsDialogOpen}
+        currentWarehouse={currentWarehouse} // Passa o almoxarifado atual
+        setCurrentWarehouse={setCurrentWarehouse} // Passa a função para limpar o almoxarifado atual
       />
     </div>
   );

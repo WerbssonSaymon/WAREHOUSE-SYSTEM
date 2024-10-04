@@ -14,6 +14,7 @@ export default function AreaOptionsButton({
   updateType,
   setUpdatedDescription,
   setUpdateType,
+  onEditWarehouse
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -57,7 +58,7 @@ export default function AreaOptionsButton({
               <button
                 type="button"
                 className="flex w-full items-center py-1 px-4 hover:bg-gray-300 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200"
-                onClick={openEditDialog}
+                onClick={() => onEditWarehouse(warehouse)}
               >
                 <FaEdit className="w-4 h-4 mr-2" />
                 Editar

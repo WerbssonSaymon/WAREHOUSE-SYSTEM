@@ -3,7 +3,7 @@ import { Button } from "@radix-ui/themes";
 
 export default function pagination({totalPages, currentPage, handlePageChange}) {
   return (
-    <div className="flex justify-center mt-4 gap-1">
+    <div className="w-full flex justify-center mt-4 gap-1">
         {Array.from({ length: totalPages }, (_, index) => (
           <Button
             key={index + 1}

@@ -8,6 +8,7 @@ export default function viewWarehouse({
   warehouses,
   onUpdateWarehouse,
   onDeleteWarehouse,
+  onEditWarehouse
 }) {
   const {
     updatedDescription,
@@ -19,7 +20,6 @@ export default function viewWarehouse({
   } = usePutWarehouse(onUpdateWarehouse);
 
   const { deleteWarehouse } = useDeleteWarehouse(onDeleteWarehouse);
-
 
   const [currentPage, setCurrentPage] = useState(1);
   const amount = 7; 
@@ -75,6 +75,7 @@ export default function viewWarehouse({
                     updateType={updateType}
                     setUpdatedDescription={setUpdatedDescription}
                     setUpdateType={setUpdateType}
+                    onEditWarehouse={onEditWarehouse}
                   />
                 </td>
               </tr>

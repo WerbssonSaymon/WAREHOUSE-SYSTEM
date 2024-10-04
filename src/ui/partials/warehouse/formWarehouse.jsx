@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import usePostWarehouse from "../../../hooks/usePostWarehouse";
 import SelectTypeInterprise from "../../components/selectTypeInterprise";
 import { Box } from "@radix-ui/themes";
 
-export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
+export default function FormWarehouse({ isDialogOpen, setIsDialogOpen, currentWarehouse, setCurrentWarehouse }) {
   const {
     descricao,
     tipo,
     setDescricao,
     setTipo,
     cadastrarAlmoxarifado,
+    atualizarAlmoxarifado // Função para atualizar almoxarifado
   } = usePostWarehouse();
+
+  useEffect(() => {
+    if (currentWarehouse) {
+      setDescricao(currentWarehouse.descricao);
+      setTipo(currentWarehouse.tipo);
+    } else {
+      clearForm();
+    }
+  }, [currentWarehouse]);
 
   const clearForm = () => {
     setDescricao("");
     setTipo("");
+    setCurrentWarehouse(null); // Limpa o almoxarifado atual
+  };
+
+  const handleSave = () => {
+    if (currentWarehouse) {
+      atualizarAlmoxarifado(currentWarehouse.id, { descricao, tipo }); // Atualiza o almoxarifado
+    } else {
+      cadastrarAlmoxarifado(); // Cadastra um novo almoxarifado
+    }
+    clearForm();
+    setIsDialogOpen(false);
   };
 
   return (
@@ -28,15 +49,13 @@ export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
           }`}
         >
           <Dialog.Title className="text-lg font-medium">
-            Adicionar Almoxarifado
+            {currentWarehouse ? "Editar Almoxarifado" : "Adicionar Almoxarifado"}
           </Dialog.Title>
           <Dialog.Description className="mt-2 text-sm text-gray-600">
             Preencha os dados e clique em "Salvar" ou aperte "Cancelar".
           </Dialog.Description>
 
           <div className="mt-4">
-            
-
             <label className="block text-sm font-medium text-gray-700">
               Descrição
               <input
@@ -58,8 +77,8 @@ export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
               type="button"
               className="px-4 py-2 text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center"
               onClick={() => {
-                clearForm
-                setIsDialogOpen(false)
+                clearForm();
+                setIsDialogOpen(false);
               }}
             >
               Cancelar
@@ -67,7 +86,7 @@ export default function formWarehouse({ isDialogOpen, setIsDialogOpen }) {
             <button
               type="button"
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-              onClick={cadastrarAlmoxarifado}
+              onClick={handleSave} // Chama a função de salvar
             >
               Salvar
             </button>
