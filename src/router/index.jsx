@@ -5,7 +5,8 @@ import Home from '../pages/home/home'
 import Login from '../pages/login/login'
 import NotFound from '../pages/error/notFound';
 import Warehouse from '../pages/warehouse/warehouse';
-import WarehouseRegistration from '../pages/warehouseRegistration/warehouseRegistration';
+import Supplier from '../pages/supplier/supplier';
+import SupplierAdd from '../pages/supplier/supplierAdd';
 
 export default function index() {
   return (
@@ -14,7 +15,8 @@ export default function index() {
       <Route path="/" element={<Login />} /> 
       <Route path="/inicio" element={<Home />} />
       <Route path="/almoxarifado" element={<Warehouse/>}/>
-      <Route path="/almoxarifado/cadastro" element={<WarehouseRegistration/>}/>
+      <Route path="/fornecedor" element={<Supplier/>}/>
+      <Route path="/fornecedor/cadastro" element={<SupplierAdd/>}/>
       <Route path="*" element={<NotFound/>} /> 
     </Routes>
   </BrowserRouter>

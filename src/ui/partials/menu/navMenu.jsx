@@ -9,10 +9,10 @@ import Signature from "../../components/signature";
 export default function navMenu() {
   return (
     <nav className="space-y-2 mt-3">
-      <LinkMenu text="Amoxarifado" route="/almoxarifado">
+      <LinkMenu text="Amoxarifados" route="/almoxarifado">
         <TbMessageChatbot />
       </LinkMenu>
-      <LinkMenu text="Codigos">
+      <LinkMenu text="Fornecedores" route="/fornecedor">
         <FaFileCode />
       </LinkMenu>
       <hr className="my-2 border-gray-500" />
