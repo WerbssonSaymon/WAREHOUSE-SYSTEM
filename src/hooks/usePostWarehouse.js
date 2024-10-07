@@ -3,7 +3,6 @@ import axiosInterceptor from "../data/services/axiosInterceptor";
 import { useNavigate } from "react-router-dom";
 
 export default function usePostWarehouse() {
-  const [empresaId, setEmpresaId] = useState("");
   const [descricao, setDescricao] = useState("");
   const [tipo, setTipo] = useState("");
 
@@ -32,7 +31,6 @@ export default function usePostWarehouse() {
         }
       );
       console.log(response.data);
-      setEmpresaId("");
       setDescricao("");
       setTipo("");
     } catch (error) {
@@ -40,10 +38,8 @@ export default function usePostWarehouse() {
     }
   }
   return {
-    empresaId,
     descricao,
     tipo,
-    setEmpresaId,
     setDescricao,
     setTipo,
     cadastrarAlmoxarifado,
