@@ -4,8 +4,9 @@ import { Button } from "@radix-ui/themes";
 import usePostWarehouse from "../../../hooks/usePostWarehouse";
 import usePutWarehouse from "../../../hooks/usePutWarehouse";
 import useDeleteWarehouse from "../../../hooks/useDeleteWarehouse";
-import SelectTypeInterprise from "../../components/selectTypeInterprise";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import ModalWarehouse from "./modalWarehouse";
+import Pagination from "../../components/pagination";
 
 export default function BoxWarehouse() {
   // Hooks para buscar, criar, editar e deletar
@@ -112,7 +113,7 @@ export default function BoxWarehouse() {
     setCurrentPage(page);
   };
 
-  const [dropdownOpenId, setDropdownOpenId] = useState(null); // Estado para armazenar qual dropdown está aberto
+  const [dropdownOpenId, setDropdownOpenId] = useState(null); 
 
   // Função de toggle para abrir/fechar o dropdown de cada warehouse
   const toggleDropdown = (id) => {
@@ -220,55 +221,30 @@ export default function BoxWarehouse() {
           </tbody>
         </table>
         <div className="w-full flex justify-center mt-4 gap-1">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <Button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "!bg-orange-500 !text-white"
-                  : "!bg-gray-400"
-              }`}
-            >
-              {index + 1}
-            </Button>
-          ))}
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+          />
         </div>
       </div>
 
-      {/* Formulário para cadastrar/atualizar almoxarifado */}
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Descrição:
-        </label>
-        <input
-          type="text"
-          value={currentWarehouse ? updatedDescription : descricao}
-          onChange={(e) =>
-            currentWarehouse
-              ? setUpdatedDescription(e.target.value)
-              : setDescricao(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
+      {isDialogOpen && (
+        <ModalWarehouse
+          currentWarehouse={currentWarehouse}
+          updatedDescription={updatedDescription}
+          updateType={updateType}
+          descricao={descricao}
+          tipo={tipo}
+          setUpdatedDescription={setUpdatedDescription}
+          setUpdateType={setUpdateType}
+          setDescricao={setDescricao}
+          setTipo={setTipo}
+          setIsDialogOpen={setIsDialogOpen}
+          clearForm={clearForm}
+          handleSave={handleSave}
         />
-      </div>
-
-      <div className="mt-4">
-        <SelectTypeInterprise
-          value={currentWarehouse ? updateType : tipo}
-          setValue={currentWarehouse ? setUpdateType : setTipo}
-        />
-      </div>
-
-      <div className="mt-6 flex justify-end">
-        <Button className="mr-2" onClick={clearForm}>
-          Cancelar
-        </Button>
-        <Button onClick={handleSave}>
-          {currentWarehouse ? "Atualizar" : "Cadastrar"}
-        </Button>
-      </div>
-
+      )}
       {/* Modal de exclusão */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
