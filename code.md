@@ -57,3 +57,5 @@ let on = "usado quando a função manipula um evento"
 // Arrow function são mais comum no React e evitam problemas com THIS
 const nomeDaFuncao = () => {} 
 ```
+
+git commit -m "refactor:estilizando  botoes de edição e exclusão"  

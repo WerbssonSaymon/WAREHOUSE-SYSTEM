@@ -5,6 +5,7 @@ import usePostWarehouse from "../../../hooks/usePostWarehouse";
 import usePutWarehouse from "../../../hooks/usePutWarehouse";
 import useDeleteWarehouse from "../../../hooks/useDeleteWarehouse";
 import SelectTypeInterprise from "../../components/selectTypeInterprise";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 export default function BoxWarehouse() {
   // Hooks para buscar, criar, editar e deletar
@@ -22,13 +23,8 @@ export default function BoxWarehouse() {
   const currentWarehouses = warehouses.slice(startIndex, startIndex + amount);
 
   // Hooks para criação e edição
-  const {
-    descricao,
-    tipo,
-    setDescricao,
-    setTipo,
-    cadastrarAlmoxarifado,
-  } = usePostWarehouse();
+  const { descricao, tipo, setDescricao, setTipo, cadastrarAlmoxarifado } =
+    usePostWarehouse();
 
   const {
     updatedDescription,
@@ -47,7 +43,9 @@ export default function BoxWarehouse() {
   });
 
   const { deleteWarehouse } = useDeleteWarehouse((deletedId) => {
-    setWarehouses((prev) => prev.filter((warehouse) => warehouse.id !== deletedId));
+    setWarehouses((prev) =>
+      prev.filter((warehouse) => warehouse.id !== deletedId)
+    );
   });
 
   // Mapeamento de tipo
@@ -114,6 +112,17 @@ export default function BoxWarehouse() {
     setCurrentPage(page);
   };
 
+  const [dropdownOpenId, setDropdownOpenId] = useState(null); // Estado para armazenar qual dropdown está aberto
+
+  // Função de toggle para abrir/fechar o dropdown de cada warehouse
+  const toggleDropdown = (id) => {
+    if (dropdownOpenId === id) {
+      setDropdownOpenId(null); // Fecha o dropdown se já estiver aberto
+    } else {
+      setDropdownOpenId(id); // Abre o dropdown para o ID específico
+    }
+  };
+
   return (
     <div className="w-[70vw] bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md">
       <div className="flex justify-between">
@@ -125,9 +134,15 @@ export default function BoxWarehouse() {
         <table className="min-w-full table-auto">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
-              <th scope="col" className="px-4 py-4 text-left">ID</th>
-              <th scope="col" className="px-4 py-3 text-left">Descrição</th>
-              <th scope="col" className="px-4 py-3 text-left">Tipo</th>
+              <th scope="col" className="px-4 py-4 text-left">
+                ID
+              </th>
+              <th scope="col" className="px-4 py-3 text-left">
+                Descrição
+              </th>
+              <th scope="col" className="px-4 py-3 text-left">
+                Tipo
+              </th>
               <th scope="col" className="px-4 py-3 text-left">
                 <span className="sr-only">Ações</span>
               </th>
@@ -137,36 +152,69 @@ export default function BoxWarehouse() {
             {currentWarehouses.length > 0 ? (
               currentWarehouses.map((warehouse) => (
                 <tr key={warehouse.id} className="border-b">
-                  <td className="py-2 px-4 font-medium text-gray-900">{warehouse.id}</td>
-                  <td className="py-2 px-4">
-                    <div className="w-64 text-left text-sm font-medium">{warehouse.descricao}</div>
+                  <td className="py-2 px-4 font-medium text-gray-900">
+                    {warehouse.id}
                   </td>
                   <td className="py-2 px-4">
-                    <div className="text-sm font-medium">{tipoMap[warehouse.tipo] || "Desconhecido"}</div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className="relative inline-block text-left">
-                      <button
-                        type="button"
-                        onClick={() => handleEditWarehouse(warehouse)}
-                        className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        type="button"
-                        className="ml-2 inline-flex justify-center w-full rounded-md border border-red-300 shadow-sm px-4 py-2 bg-red-600 text-sm font-medium text-white hover:bg-red-700"
-                        onClick={() => handleDeleteClick(warehouse.id)}
-                      >
-                        Excluir
-                      </button>
+                    <div className="w-64 text-left text-sm font-medium">
+                      {warehouse.descricao}
                     </div>
                   </td>
+                  <td className="py-2 px-4">
+                    <div className="text-sm font-medium">
+                      {tipoMap[warehouse.tipo] || "Desconhecido"}
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      onClick={() => toggleDropdown(warehouse.id)}
+                      className="inline-flex justify-center w-5 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    >
+                      ...
+                    </button>
+                  </td>
+                  {dropdownOpenId === warehouse.id && (
+                    <td className="py-2 px-4 relative">
+                      <div
+                        id="dropdown-menu"
+                        className="absolute right-0 mt-2 w-44 bg-white rounded divide-y divide-gray-100 shadow-lg"
+                      >
+                        <ul
+                          className="py-1 text-sm"
+                          aria-labelledby="dropdown-button"
+                        >
+                          <li>
+                            <button
+                              type="button"
+                              onClick={() => handleEditWarehouse(warehouse)}
+                              className="flex w-full items-center py-1 px-4 hover:bg-gray-300 text-gray-700"
+                            >
+                              <FaEdit className="w-4 h-4 mr-2" />
+                              Editar
+                            </button>
+                          </li>
+                          <li>
+                            <button
+                              type="button"
+                              className="flex w-full items-center py-1 px-4 hover:bg-gray-300 text-red-500"
+                              onClick={() => handleDeleteClick(warehouse.id)}
+                            >
+                              <FaTrash className="w-4 h-4 mr-2" />
+                              Excluir
+                            </button>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="py-4 text-center">Nenhum almoxarifado encontrado.</td>
+                <td colSpan="4" className="py-4 text-center">
+                  Nenhum almoxarifado encontrado.
+                </td>
               </tr>
             )}
           </tbody>
@@ -177,7 +225,9 @@ export default function BoxWarehouse() {
               key={index + 1}
               onClick={() => handlePageChange(index + 1)}
               className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1 ? "!bg-orange-500 !text-white" : "!bg-gray-400"
+                currentPage === index + 1
+                  ? "!bg-orange-500 !text-white"
+                  : "!bg-gray-400"
               }`}
             >
               {index + 1}
@@ -188,7 +238,9 @@ export default function BoxWarehouse() {
 
       {/* Formulário para cadastrar/atualizar almoxarifado */}
       <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">Descrição:</label>
+        <label className="block text-sm font-medium text-gray-700">
+          Descrição:
+        </label>
         <input
           type="text"
           value={currentWarehouse ? updatedDescription : descricao}
@@ -223,7 +275,8 @@ export default function BoxWarehouse() {
           <div className="bg-white rounded-lg p-6 shadow-lg">
             <h3 className="text-lg font-medium text-gray-900">Excluir Item</h3>
             <p className="text-sm text-gray-500 mt-2">
-              Tem certeza que deseja excluir este almoxarifado? Esta ação não pode ser desfeita.
+              Tem certeza que deseja excluir este almoxarifado? Esta ação não
+              pode ser desfeita.
             </p>
             <div className="mt-4 flex justify-end">
               <button
