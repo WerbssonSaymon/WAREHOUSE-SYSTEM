@@ -58,4 +58,4 @@ let on = "usado quando a função manipula um evento"
 const nomeDaFuncao = () => {} 
 ```
 
-git commit -m "refactor:estilizando  botoes de edição e exclusão"  
+git commit -m "refactor: modal e paginação do almoxarifado"  

@@ -4,9 +4,11 @@ import { Button } from "@radix-ui/themes";
 import usePostWarehouse from "../../../hooks/usePostWarehouse";
 import usePutWarehouse from "../../../hooks/usePutWarehouse";
 import useDeleteWarehouse from "../../../hooks/useDeleteWarehouse";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import ViewWarehouse from "./viewWarehouse";
 import ModalWarehouse from "./modalWarehouse";
 import Pagination from "../../components/pagination";
+import HeadTableWarehouse from "./headTableWarehouse";
+import AlertDelete from "../../components/alertDelete";
 
 export default function BoxWarehouse() {
   // Hooks para buscar, criar, editar e deletar
@@ -133,92 +135,15 @@ export default function BoxWarehouse() {
       <hr />
       <div className="overflow-hidden">
         <table className="min-w-full table-auto">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="px-4 py-4 text-left">
-                ID
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                Descrição
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                Tipo
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                <span className="sr-only">Ações</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentWarehouses.length > 0 ? (
-              currentWarehouses.map((warehouse) => (
-                <tr key={warehouse.id} className="border-b">
-                  <td className="py-2 px-4 font-medium text-gray-900">
-                    {warehouse.id}
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className="w-64 text-left text-sm font-medium">
-                      {warehouse.descricao}
-                    </div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className="text-sm font-medium">
-                      {tipoMap[warehouse.tipo] || "Desconhecido"}
-                    </div>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => toggleDropdown(warehouse.id)}
-                      className="inline-flex justify-center w-5 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                    >
-                      ...
-                    </button>
-                  </td>
-                  {dropdownOpenId === warehouse.id && (
-                    <td className="py-2 px-4 relative">
-                      <div
-                        id="dropdown-menu"
-                        className="absolute right-0 mt-2 w-44 bg-white rounded divide-y divide-gray-100 shadow-lg"
-                      >
-                        <ul
-                          className="py-1 text-sm"
-                          aria-labelledby="dropdown-button"
-                        >
-                          <li>
-                            <button
-                              type="button"
-                              onClick={() => handleEditWarehouse(warehouse)}
-                              className="flex w-full items-center py-1 px-4 hover:bg-gray-300 text-gray-700"
-                            >
-                              <FaEdit className="w-4 h-4 mr-2" />
-                              Editar
-                            </button>
-                          </li>
-                          <li>
-                            <button
-                              type="button"
-                              className="flex w-full items-center py-1 px-4 hover:bg-gray-300 text-red-500"
-                              onClick={() => handleDeleteClick(warehouse.id)}
-                            >
-                              <FaTrash className="w-4 h-4 mr-2" />
-                              Excluir
-                            </button>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                  )}
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="py-4 text-center">
-                  Nenhum almoxarifado encontrado.
-                </td>
-              </tr>
-            )}
-          </tbody>
+          <HeadTableWarehouse/>
+          <ViewWarehouse
+            currentWarehouses={currentWarehouses}
+            tipoMap={tipoMap}
+            toggleDropdown={toggleDropdown}
+            dropdownOpenId={dropdownOpenId}
+            handleEditWarehouse={handleEditWarehouse}
+            handleDeleteClick={handleDeleteClick}
+          />
         </table>
         <div className="w-full flex justify-center mt-4 gap-1">
           <Pagination
@@ -247,29 +172,10 @@ export default function BoxWarehouse() {
       )}
       {/* Modal de exclusão */}
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="bg-white rounded-lg p-6 shadow-lg">
-            <h3 className="text-lg font-medium text-gray-900">Excluir Item</h3>
-            <p className="text-sm text-gray-500 mt-2">
-              Tem certeza que deseja excluir este almoxarifado? Esta ação não
-              pode ser desfeita.
-            </p>
-            <div className="mt-4 flex justify-end">
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                onClick={confirmDelete}
-              >
-                Confirmar
-              </button>
-              <button
-                className="ml-2 px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
-                onClick={() => setIsDeleteModalOpen(false)}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
+        <AlertDelete
+          confirmDelete={confirmDelete}
+          setIsDeleteModalOpen={setIsDeleteModalOpen}
+        />
       )}
     </div>
   );
