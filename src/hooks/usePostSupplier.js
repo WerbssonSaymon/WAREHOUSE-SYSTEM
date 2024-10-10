@@ -5,26 +5,27 @@ import { useNavigate } from "react-router-dom";
 export default function usePostSupplier() {
 
   const [nomeRazaoSocial, setNomeRazaoSocial] = useState("");
-  const [cpfCnpj, setCpfCnpj] = useState("90982039848");
+  const [cpfCnpj, setCpfCnpj] = useState("");
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [rgInscricaoEstadual, setRgInscricaoEstadual] = useState("");
-  const [tipo, setTipo] = useState(1); // Valor padrão
-  const [optanteSimples, setOptanteSimples] = useState(true); // Valor padrão
+  const [tipo, setTipo] = useState(1); 
+  const [ativo, setAtivo] = useState(true);
+  const [optanteSimples, setOptanteSimples] = useState(true); 
   const [limiteCredito, setLimiteCredito] = useState(0);
   const [numeroPisPasepNit, setNumeroPisPasepNit] = useState("");
   const [cep, setCep] = useState("");
   const [cidade, setCidade] = useState("");
-  const [uf, setUf] = useState(11); // Valor padrão
+  const [uf, setUf] = useState(11); 
   const [logradouro, setLogradouro] = useState("");
   const [numero, setNumero] = useState("");
   const [bairro, setBairro] = useState("");
   const [complemento, setComplemento] = useState("");
   const [codigoIbge, setCodigoIbge] = useState(0);
   const [nomeFantasia, setNomeFantasia] = useState("");
-  const [atividade, setAtividade] = useState(1); // Valor padrão
-  const [crt, setCrt] = useState(1); // Valor padrão
-  const [liberado, setLiberado] = useState(true); // Valor padrão
+  const [atividade, setAtividade] = useState(1); 
+  const [crt, setCrt] = useState(1); 
+  const [liberado, setLiberado] = useState(true); 
   const [desconto, setDesconto] = useState(0);
   const [formaPagamentoId, setFormaPagamentoId] = useState(null);
   const [condicaoPagamentoId, setCondicaoPagamentoId] = useState(null);
@@ -51,6 +52,7 @@ export default function usePostSupplier() {
           email,
           rgInscricaoEstadual,
           tipo: parseInt(tipo),
+          ativo,
           optanteSimples,
           limiteCredito,
           numeroPisPasepNit,
@@ -87,27 +89,28 @@ export default function usePostSupplier() {
 
   function clearForm() {
     setNomeRazaoSocial("");
-    setCpfCnpj("90982039848");
+    setCpfCnpj("");
     setTelefone("");
     setEmail("");
     setRgInscricaoEstadual("");
-    setTipo(1);
-    setOptanteSimples(true);
-    setLimiteCredito(0);
+    setTipo("");
+    setAtivo("")
+    setOptanteSimples("");
+    setLimiteCredito("");
     setNumeroPisPasepNit("");
     setCep("");
     setCidade("");
-    setUf(11);
+    setUf("");
     setLogradouro("");
     setNumero("");
     setBairro("");
     setComplemento("");
-    setCodigoIbge(0);
+    setCodigoIbge("");
     setNomeFantasia("");
-    setAtividade(1);
-    setCrt(1);
-    setLiberado(true);
-    setDesconto(0);
+    setAtividade("");
+    setCrt("");
+    setLiberado("");
+    setDesconto("");
     setFormaPagamentoId(null);
     setCondicaoPagamentoId(null);
     setInscricaoMunicipal("");
@@ -120,6 +123,7 @@ export default function usePostSupplier() {
     email,
     rgInscricaoEstadual,
     tipo,
+    ativo,
     optanteSimples,
     limiteCredito,
     numeroPisPasepNit,
@@ -145,6 +149,7 @@ export default function usePostSupplier() {
     setEmail,
     setRgInscricaoEstadual,
     setTipo,
+    setAtivo,
     setOptanteSimples,
     setLimiteCredito,
     setNumeroPisPasepNit,

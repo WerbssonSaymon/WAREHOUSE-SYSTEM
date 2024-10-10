@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from '../../ui/partials/layout/layout'
-import ViewSupplier from '../../ui/partials/supplier/viewSupplier'
+import BoxSupplier from '../../ui/partials/supplier/boxSupplier'
 
 export default function supplier() {
+
   return (
     <Layout>
-      fornecedores
-      <ViewSupplier/>
+     <BoxSupplier/>
     </Layout>
   )
 }

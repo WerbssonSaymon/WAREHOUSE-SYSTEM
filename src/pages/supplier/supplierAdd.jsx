@@ -29,7 +29,6 @@ export default function supplierAdd() {
     formaPagamentoId,
     condicaoPagamentoId,
     inscricaoMunicipal,
-    setEmpresaId,
     setNomeRazaoSocial,
     setCpfCnpj,
     setTelefone,
