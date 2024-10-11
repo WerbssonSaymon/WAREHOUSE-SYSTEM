@@ -117,12 +117,11 @@ export default function BoxWarehouse() {
 
   const [dropdownOpenId, setDropdownOpenId] = useState(null); 
 
-  // Função de toggle para abrir/fechar o dropdown de cada warehouse
   const toggleDropdown = (id) => {
     if (dropdownOpenId === id) {
-      setDropdownOpenId(null); // Fecha o dropdown se já estiver aberto
+      setDropdownOpenId(null); 
     } else {
-      setDropdownOpenId(id); // Abre o dropdown para o ID específico
+      setDropdownOpenId(id);
     }
   };
 

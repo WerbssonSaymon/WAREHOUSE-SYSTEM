@@ -1,297 +1,162 @@
 import React from "react";
+import { Button } from "@radix-ui/themes";
 
 export default function formSupplier({
-  supplierData,
-  setSupplierData,
-  cadastrarFornecedor,
+  currentSupplier,
+  nomeRazaoSocial,
+  setNomeRazaoSocial,
+  updatedNomeRazaoSocial,
+  setUpdatedNomeRazaoSocial,
+  cpfCnpj,
+  setCpfCnpj,
+  updatedCpfCnpj,
+  setUpdatedCpfCnpj,
+  telefone,
+  setTelefone,
+  updatedTelefone,
+  setUpdatedTelefone,
+  email,
+  setEmail,
+  updatedEmail,
+  setUpdatedEmail,
+  rgInscricaoEstadual,
+  setRgInscricaoEstadual,
+  updatedRgInscricaoEstadual,
+  setUpdatedRgInscricaoEstadual,
+  tipo,
+  setTipo,
+  updatedTipo,
+  setUpdatedTipo,
+  ativo,
+  setAtivo,
+  updatedAtivo,
+  setUpdatedAtivo,
+  optanteSimples,
+  setOptanteSimples,
+  updatedOptanteSimples,
+  setUpdatedOptanteSimples,
+  limiteCredito,
+  setLimiteCredito,
+  updatedLimiteCredito,
+  setUpdatedLimiteCredito,
+  numeroPisPasepNit,
+  setNumeroPisPasepNit,
+  updatedNumeroPisPasepNit,
+  setUpdatedNumeroPisPasepNit,
+  cep,
+  setCep,
+  updatedCep,
+  setUpdatedCep,
+  cidade,
+  setCidade,
+  updatedCidade,
+  setUpdatedCidade,
+  uf,
+  setUf,
+  updatedUf,
+  setUpdatedUf,
+  logradouro,
+  setLogradouro,
+  updatedLogradouro,
+  setUpdatedLogradouro,
+  numero,
+  setNumero,
+  updatedNumero,
+  setUpdatedNumero,
+  bairro,
+  setBairro,
+  updatedBairro,
+  setUpdatedBairro,
+  complemento,
+  setComplemento,
+  updatedComplemento,
+  setUpdatedComplemento,
+  codigoIbge,
+  setCodigoIbge,
+  updatedCodigoIbge,
+  setUpdatedCodigoIbge,
+  nomeFantasia,
+  setNomeFantasia,
+  updatedNomeFantasia,
+  setUpdatedNomeFantasia,
+  atividade,
+  setAtividade,
+  updatedAtividade,
+  setUpdatedAtividade,
+  crt,
+  setCrt,
+  updatedCrt,
+  setUpdatedCrt,
+  liberado,
+  setLiberado,
+  updatedLiberado,
+  setUpdatedLiberado,
+  desconto,
+  setDesconto,
+  updatedDesconto,
+  setUpdatedDesconto,
+  formaPagamentoId,
+  setFormaPagamentoId,
+  updatedFormaPagamentoId,
+  setUpdatedFormaPagamentoId,
+  condicaoPagamentoId,
+  setCondicaoPagamentoId,
+  updatedCondicaoPagamentoId,
+  setUpdatedCondicaoPagamentoId,
+  inscricaoMunicipal,
+  setInscricaoMunicipal,
+  updatedInscricaoMunicipal,
+  setUpdatedInscricaoMunicipal,
+  clearForm,
+  handleSave,
+  setIsDialogOpen
 }) {
-  const {
-    nomeRazaoSocial,
-    cpfCnpj,
-    telefone,
-    email,
-    rgInscricaoEstadual,
-    tipo,
-    optanteSimples,
-    limiteCredito,
-    numeroPisPasepNit,
-    cep,
-    cidade,
-    uf,
-    logradouro,
-    numero,
-    bairro,
-    complemento,
-    codigoIbge,
-    nomeFantasia,
-    atividade,
-    crt,
-    liberado,
-    desconto,
-    formaPagamentoId,
-    condicaoPagamentoId,
-    inscricaoMunicipal,
-  } = supplierData;
-  const {
-    setNomeRazaoSocial,
-    setCpfCnpj,
-    setTelefone,
-    setEmail,
-    setRgInscricaoEstadual,
-    setTipo,
-    setOptanteSimples,
-    setLimiteCredito,
-    setNumeroPisPasepNit,
-    setCep,
-    setCidade,
-    setUf,
-    setLogradouro,
-    setNumero,
-    setBairro,
-    setComplemento,
-    setCodigoIbge,
-    setNomeFantasia,
-    setAtividade,
-    setCrt,
-    setLiberado,
-    setDesconto,
-    setFormaPagamentoId,
-    setCondicaoPagamentoId,
-    setInscricaoMunicipal,
-  } = setSupplierData;
+  
   return (
-    <>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Razão social:
-        </label>
-        <input
-          type="text"
-          value={nomeRazaoSocial}
-          onChange={(e) => setNomeRazaoSocial(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          CPF/CNPJ:
-        </label>
-        {/* tem que fazer um componente separado */}
-        <input
-          type="text"
-          value={cpfCnpj}
-          onChange={(e) => setCpfCnpj(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Telefone:
-        </label>
-        <input
-          type="text"
-          value={telefone}
-          onChange={(e) => setTelefone(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
+    <div className="mt-4">
+      <FormField label="Razão Social" value={currentSupplier ? updatedNomeRazaoSocial : nomeRazaoSocial} onChange={(e) => currentSupplier ? setUpdatedNomeRazaoSocial(e.target.value) : setNomeRazaoSocial(e.target.value)} />
+      <FormField label="CPF/CNPJ" value={currentSupplier ? updatedCpfCnpj : cpfCnpj} onChange={(e) => currentSupplier ? setUpdatedCpfCnpj(e.target.value) : setCpfCnpj(e.target.value)} />
+      <FormField label="Telefone" value={currentSupplier ? updatedTelefone : telefone} onChange={(e) => currentSupplier ? setUpdatedTelefone(e.target.value) : setTelefone(e.target.value)} />
+      <FormField label="E-mail" value={currentSupplier ? updatedEmail : email} onChange={(e) => currentSupplier ? setUpdatedEmail(e.target.value) : setEmail(e.target.value)} />
+      <FormField label="RG/Inscrição Estadual" value={currentSupplier ? updatedRgInscricaoEstadual : rgInscricaoEstadual} onChange={(e) => currentSupplier ? setUpdatedRgInscricaoEstadual(e.target.value) : setRgInscricaoEstadual(e.target.value)} />
+      <FormField label="Tipo" value={currentSupplier ? updatedTipo : tipo} onChange={(e) => currentSupplier ? setUpdatedTipo(e.target.value) : setTipo(e.target.value)} />
+      <FormField label="Ativo" value={currentSupplier ? updatedAtivo : ativo} onChange={(e) => currentSupplier ? setUpdatedAtivo(e.target.value) : setAtivo(e.target.value)} />
+      <FormField label="Optante pelo Simples" type="checkbox" checked={currentSupplier ? updatedOptanteSimples : optanteSimples} onChange={(e) => currentSupplier ? setUpdatedOptanteSimples(e.target.checked) : setOptanteSimples(e.target.checked)} />
+      <FormField label="Limite de Crédito" type="number" value={currentSupplier ? updatedLimiteCredito : limiteCredito} onChange={(e) => currentSupplier ? setUpdatedLimiteCredito(e.target.value) : setLimiteCredito(e.target.value)} />
+      <FormField label="Número PIS/PASEP/NIT" value={currentSupplier ? updatedNumeroPisPasepNit : numeroPisPasepNit} onChange={(e) => currentSupplier ? setUpdatedNumeroPisPasepNit(e.target.value) : setNumeroPisPasepNit(e.target.value)} />
+      <FormField label="CEP" value={currentSupplier ? updatedCep : cep} onChange={(e) => currentSupplier ? setUpdatedCep(e.target.value) : setCep(e.target.value)} />
+      <FormField label="Cidade" value={currentSupplier ? updatedCidade : cidade} onChange={(e) => currentSupplier ? setUpdatedCidade(e.target.value) : setCidade(e.target.value)} />
+      <FormField label="UF" value={currentSupplier ? updatedUf : uf} onChange={(e) => currentSupplier ? setUpdatedUf(e.target.value) : setUf(e.target.value)} />
+      <FormField label="Logradouro" value={currentSupplier ? updatedLogradouro : logradouro} onChange={(e) => currentSupplier ? setUpdatedLogradouro(e.target.value) : setLogradouro(e.target.value)} />
+      <FormField label="Número" type="number" value={currentSupplier ? updatedNumero : numero} onChange={(e) => currentSupplier ? setUpdatedNumero(e.target.value) : setNumero(e.target.value)} />
+      <FormField label="Bairro" value={currentSupplier ? updatedBairro : bairro} onChange={(e) => currentSupplier ? setUpdatedBairro(e.target.value) : setBairro(e.target.value)} />
+      <FormField label="Complemento" value={currentSupplier ? updatedComplemento : complemento} onChange={(e) => currentSupplier ? setUpdatedComplemento(e.target.value) : setComplemento(e.target.value)} />
+      <FormField label="Código IBGE" value={currentSupplier ? updatedCodigoIbge : codigoIbge} onChange={(e) => currentSupplier ? setUpdatedCodigoIbge(e.target.value) : setCodigoIbge(e.target.value)} />
+      <FormField label="Nome Fantasia" value={currentSupplier ? updatedNomeFantasia : nomeFantasia} onChange={(e) => currentSupplier ? setUpdatedNomeFantasia(e.target.value) : setNomeFantasia(e.target.value)} />
+      <FormField label="Atividade" value={currentSupplier ? updatedAtividade : atividade} onChange={(e) => currentSupplier ? setUpdatedAtividade(e.target.value) : setAtividade(e.target.value)} />
+      <FormField label="CRT" value={currentSupplier ? updatedCrt : crt} onChange={(e) => currentSupplier ? setUpdatedCrt(e.target.value) : setCrt(e.target.value)} />
+      <FormField label="Liberado" value={currentSupplier ? updatedLiberado : liberado} onChange={(e) => currentSupplier ? setUpdatedLiberado(e.target.value) : setLiberado(e.target.value)} />
+      <FormField label="Desconto" type="number" value={currentSupplier ? updatedDesconto : desconto} onChange={(e) => currentSupplier ? setUpdatedDesconto(e.target.value) : setDesconto(e.target.value)} />
+      <FormField label="Forma de Pagamento" value={currentSupplier ? updatedFormaPagamentoId : formaPagamentoId} onChange={(e) => currentSupplier ? setUpdatedFormaPagamentoId(e.target.value) : setFormaPagamentoId(e.target.value)} />
+      <FormField label="Condição de Pagamento" value={currentSupplier ? updatedCondicaoPagamentoId : condicaoPagamentoId} onChange={(e) => currentSupplier ? setUpdatedCondicaoPagamentoId(e.target.value) : setCondicaoPagamentoId(e.target.value)} />
+      <FormField label="Inscrição Municipal" value={currentSupplier ? updatedInscricaoMunicipal : inscricaoMunicipal} onChange={(e) => currentSupplier ? setUpdatedInscricaoMunicipal(e.target.value) : setInscricaoMunicipal(e.target.value)} />  
+      <div className="mt-6 flex justify-end">
+        <Button className="mr-2" onClick={() => {clearForm(), setIsDialogOpen(false)}}>Cancelar</Button>
+        <Button onClick={handleSave}>{currentSupplier ? "Atualizar" : "Cadastrar"}</Button>
       </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Email:
-        </label>
-        <input
-          type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          RG Inscrição estadual:
-        </label>
-        <input
-          type="text"
-          value={rgInscricaoEstadual}
-          onChange={(e) => setRgInscricaoEstadual(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">Tipo:</label>
-        <input
-          type="text"
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Optante simples:
-        </label>
-        <input
-          type="text"
-          value={optanteSimples}
-          onChange={(e) => setOptanteSimples(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Limite de credito:
-        </label>
-        <input
-          type="text"
-          value={limiteCredito}
-          onChange={(e) => setLimiteCredito(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        {/* MUDAR TAMBEM */}
-        <label className="block text-sm font-medium text-gray-700">
-          PIS/PASEP/NIT:
-        </label>
-        <input
-          type="text"
-          value={numeroPisPasepNit}
-          onChange={(e) => setNumeroPisPasepNit(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">CEP:</label>
-        <input
-          type="text"
-          value={cep}
-          onChange={(e) => setCep(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">UF:</label>
-        <input
-          type="text"
-          value={uf}
-          onChange={(e) => setUf(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Logradouro:
-        </label>
-        <input
-          type="text"
-          value={logradouro}
-          onChange={(e) => setLogradouro(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Numero:
-        </label>
-        <input
-          type="text"
-          value={numero}
-          onChange={(e) => setNumero(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Bairro:
-        </label>
-        <input
-          type="text"
-          value={bairro}
-          onChange={(e) => setBairro(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Complemento:
-        </label>
-        <input
-          type="text"
-          value={complemento}
-          onChange={(e) => setComplemento(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Codigo IBGE:
-        </label>
-        <input
-          type="text"
-          value={codigoIbge}
-          onChange={(e) => setCodigoIbge(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Nome fantasia:
-        </label>
-        <input
-          type="text"
-          value={nomeFantasia}
-          onChange={(e) => setNomeFantasia(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Atividade:
-        </label>
-        <input
-          type="text"
-          value={atividade}
-          onChange={(e) => setAtividade(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">CRT:</label>
-        <input
-          type="text"
-          value={crt}
-          onChange={(e) => setCrt(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Liberado:
-        </label>
-        <input
-          type="text"
-          value={liberado}
-          onChange={(e) => setLiberado(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mt-4">
-        <label className="block text-sm font-medium text-gray-700">
-          Desconto:
-        </label>
-        <input
-          type="text"
-          value={desconto}
-          onChange={(e) => setDesconto(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Forma de pagamento:
-        </label>
-        <input
-          type="text"
-          value={formaPagamentoId}
-          onChange={(e) => setFormaPagamentoId(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Condição de pagamento:
-        </label>
-        <input
-          type="text"
-          value={condicaoPagamentoId}
-          onChange={(e) => setCondicaoPagamentoId(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-        <label className="block text-sm font-medium text-gray-700">
-          Inscrição municipal:
-        </label>
-        <input
-          type="text"
-          value={inscricaoMunicipal}
-          onChange={(e) => setInscricaoMunicipal(e.target.value)}
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-      <div className="mt-4">
-      <button
-              type="button"
-              className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-              onClick={cadastrarFornecedor}
-            >
-              Cadastrar
-            </button>
-      </div>
-    </>
+    </div>
   );
 }
+
+const FormField = ({ label, type = "text", value, onChange, checked }) => (
+  <div className="mt-4">
+    <label className="block text-sm font-medium text-gray-700">{label}:</label>
+    <input
+      type={type}
+      value={type === "checkbox" ? undefined : value}
+      checked={type === "checkbox" ? checked : undefined}
+      onChange={onChange}
+      className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
+    />
+  </div>
+)

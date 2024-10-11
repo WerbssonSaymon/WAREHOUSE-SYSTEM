@@ -55,7 +55,7 @@ export default function usePutSupplier(onUpdateSupplier) {
         console.error("Erro na atualização:", response);
       }
     } catch (error) {
-      console.error("Erro ao atualizar almoxarifado:", error);
+      console.error("Erro ao atualizar fornecedores:", error);
     }
   };
 

@@ -4,6 +4,11 @@ import usePutSupplier from "../../../hooks/usePutSupplier";
 import useDeleteSupplier from "../../../hooks/useDeleteSupplier";
 import useGetSupplier from "../../../hooks/useGetSupplier";
 import { Button } from "@radix-ui/themes";
+import Pagination from "../../components/pagination"
+import ViewSupplier from "./viewSupplier";
+import HeadTableSupplier from "./headTableSupplier";
+import AlertDelete from "../../components/alertDelete";
+import FormSupplier from "./formSupplier";
 
 export default function boxSupplier() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -194,24 +199,24 @@ export default function boxSupplier() {
     setTelefone("");
     setEmail("");
     setRgInscricaoEstadual("");
-    setTipo(1);
-    setAtivo(true);
-    setOptanteSimples(true);
-    setLimiteCredito(0);
+    setTipo("");
+    setAtivo("");
+    setOptanteSimples("");
+    setLimiteCredito("");
     setNumeroPisPasepNit("");
     setCep("");
     setCidade("");
-    setUf(1);
+    setUf('');
     setLogradouro("");
     setNumero("");
     setBairro("");
     setComplemento("");
-    setCodigoIbge(0);
+    setCodigoIbge("");
     setNomeFantasia("");
-    setAtividade(1);
-    setCrt(1);
-    setLiberado(true);
-    setDesconto(0);
+    setAtividade("");
+    setCrt("");
+    setLiberado("");
+    setDesconto("");
     setFormaPagamentoId(null);
     setCondicaoPagamentoId(null);
     setInscricaoMunicipal("");
@@ -248,6 +253,16 @@ export default function boxSupplier() {
     setCurrentPage(page);
   };
 
+  const [dropdownOpenId, setDropdownOpenId] = useState(null); 
+
+  const toggleDropdown = (id) => {
+    if (dropdownOpenId === id) {
+      setDropdownOpenId(null); 
+    } else {
+      setDropdownOpenId(id);
+    }
+  };
+
   return (
     <div className="w-[70vw] bg-white border border-gray-100 shadow-md shadow-black/5 p-6 rounded-md">
       <div className="flex justify-between">
@@ -257,551 +272,141 @@ export default function boxSupplier() {
       <hr />
       <div className="overflow-hidden">
         <table className="min-w-full table-auto">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-4 py-4 text-left">
-                ID
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                ID empresa
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                Nome razão social
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                cpf/cnpj
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                telefone
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                email
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                ativo
-              </th>
-              <th scope="col" className="px-4 py-3 text-left">
-                <span className="sr-only">Ações</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentSuppliers.length > 0 ? (
-              currentSuppliers.map((supplier) => (
-                <tr key={supplier.id} className="border-b">
-                  <td className="py-2 px-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {supplier.id}
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.empresaId}
-                    </div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.nomeRazaoSocial}
-                    </div>
-                  </td>
-                   <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.cpfCnpj}
-                    </div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.numeroTelefone}
-                    </div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.email}
-                    </div>
-                  </td>
-                  <td className="py-2 px-4">
-                    <div className=" text-left text-sm font-medium">
-                      {supplier.ativo}
-                    </div>
-                  </td> 
-                  <td className="py-2 px-4">
-                    <div className="relative inline-block text-left">
-                      <button
-                        type="button"
-                        onClick={() => handleEditSupplier(supplier)}
-                        className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
-                      >
-                        Editar
-                      </button>
-                      <button
-                        type="button"
-                        className="ml-2 inline-flex justify-center w-full rounded-md border border-red-300 shadow-sm px-4 py-2 bg-red-600 text-sm font-medium text-white hover:bg-red-700"
-                        onClick={() => handleDeleteClick(supplier.id)}
-                      >
-                        Excluir
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="4" className="py-4 text-center">
-                  Nenhum almoxarifado encontrado.
-                </td>
-              </tr>
-            )}
-          </tbody>
+          <HeadTableSupplier/>
+          <ViewSupplier
+            currentSuppliers={currentSuppliers}
+            handleEditSupplier={handleEditSupplier}
+            handleDeleteClick={handleDeleteClick}
+            dropdownOpenId={dropdownOpenId}
+            toggleDropdown={toggleDropdown}
+          />
         </table>
         <div className="w-full flex justify-center mt-4 gap-1">
-          {Array.from({ length: totalPages }, (_, index) => (
-            <Button
-              key={index + 1}
-              onClick={() => handlePageChange(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${
-                currentPage === index + 1
-                  ? "!bg-orange-500 !text-white"
-                  : "!bg-gray-400"
-              }`}
-            >
-              {index + 1}
-            </Button>
-          ))}
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            handlePageChange={handlePageChange}
+          />
         </div>
       </div>
-
-      {/* Formulário para cadastrar/atualizar almoxarifado */}
-      <div className="mt-4">
-        {/* Nome/Razão Social */}
-        <label className="block text-sm font-medium text-gray-700">
-          Razão Social:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedNomeRazaoSocial : nomeRazaoSocial}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedNomeRazaoSocial(e.target.value)
-              : setNomeRazaoSocial(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
+      {isDialogOpen && (
+          <FormSupplier
+          currentSupplier={currentSupplier}
+          nomeRazaoSocial={nomeRazaoSocial}
+          setNomeRazaoSocial={setNomeRazaoSocial}
+          updatedNomeRazaoSocial={updatedNomeRazaoSocial}
+          setUpdatedNomeRazaoSocial={setUpdatedNomeRazaoSocial}
+          cpfCnpj={cpfCnpj}
+          setCpfCnpj={setCpfCnpj}
+          updatedCpfCnpj={updatedCpfCnpj}
+          setUpdatedCpfCnpj={setUpdatedCpfCnpj}
+          telefone={telefone}
+          setTelefone={setTelefone}
+          updatedTelefone={updatedTelefone}
+          setUpdatedTelefone={setUpdatedTelefone}
+          email={email}
+          setEmail={setEmail}
+          updatedEmail={updatedEmail}
+          setUpdatedEmail={setUpdatedEmail}
+          rgInscricaoEstadual={rgInscricaoEstadual}
+          setRgInscricaoEstadual={setRgInscricaoEstadual}
+          updatedRgInscricaoEstadual={updatedRgInscricaoEstadual}
+          setUpdatedRgInscricaoEstadual={setUpdatedRgInscricaoEstadual}
+          tipo={tipo}
+          setTipo={setTipo}
+          updatedTipo={updatedTipo}
+          setUpdatedTipo={setUpdatedTipo}
+          ativo={ativo}
+          setAtivo={setAtivo}
+          updatedAtivo={updatedAtivo}
+          setUpdatedAtivo={setUpdatedAtivo}
+          optanteSimples={optanteSimples}
+          setOptanteSimples={setOptanteSimples}
+          updatedOptanteSimples={updatedOptanteSimples}
+          setUpdatedOptanteSimples={setUpdatedOptanteSimples}
+          limiteCredito={limiteCredito}
+          setLimiteCredito={setLimiteCredito}
+          updatedLimiteCredito={updatedLimiteCredito}
+          setUpdatedLimiteCredito={setUpdatedLimiteCredito}
+          numeroPisPasepNit={numeroPisPasepNit}
+          setNumeroPisPasepNit={setNumeroPisPasepNit}
+          updatedNumeroPisPasepNit={updatedNumeroPisPasepNit}
+          setUpdatedNumeroPisPasepNit={setUpdatedNumeroPisPasepNit}
+          cep={cep}
+          setCep={setCep}
+          updatedCep={updatedCep}
+          setUpdatedCep={setUpdatedCep}
+          cidade={cidade}
+          setCidade={setCidade}
+          updatedCidade={updatedCidade}
+          setUpdatedCidade={setUpdatedCidade}
+          uf={uf}
+          setUf={setUf}
+          updatedUf={updatedUf}
+          setUpdatedUf={setUpdatedUf}
+          logradouro={logradouro}
+          setLogradouro={setLogradouro}
+          updatedLogradouro={updatedLogradouro}
+          setUpdatedLogradouro={setUpdatedLogradouro}
+          numero={numero}
+          setNumero={setNumero}
+          updatedNumero={updatedNumero}
+          setUpdatedNumero={setUpdatedNumero}
+          bairro={bairro}
+          setBairro={setBairro}
+          updatedBairro={updatedBairro}
+          setUpdatedBairro={setUpdatedBairro}
+          complemento={complemento}
+          setComplemento={setComplemento}
+          updatedComplemento={updatedComplemento}
+          setUpdatedComplemento={setUpdatedComplemento}
+          codigoIbge={codigoIbge}
+          setCodigoIbge={setCodigoIbge}
+          updatedCodigoIbge={updatedCodigoIbge}
+          setUpdatedCodigoIbge={setUpdatedCodigoIbge}
+          nomeFantasia={nomeFantasia}
+          setNomeFantasia={setNomeFantasia}
+          updatedNomeFantasia={updatedNomeFantasia}
+          setUpdatedNomeFantasia={setUpdatedNomeFantasia}
+          atividade={atividade}
+          setAtividade={setAtividade}
+          updatedAtividade={updatedAtividade}
+          setUpdatedAtividade={setUpdatedAtividade}
+          crt={crt}
+          setCrt={setCrt}
+          updatedCrt={updatedCrt}
+          setUpdatedCrt={setUpdatedCrt}
+          liberado={liberado}
+          setLiberado={setLiberado}
+          updatedLiberado={updatedLiberado}
+          setUpdatedLiberado={setUpdatedLiberado}
+          desconto={desconto}
+          setDesconto={setDesconto}
+          updatedDesconto={updatedDesconto}
+          setUpdatedDesconto={setUpdatedDesconto}
+          formaPagamentoId={formaPagamentoId}
+          setFormaPagamentoId={setFormaPagamentoId}
+          updatedFormaPagamentoId={updatedFormaPagamentoId}
+          setUpdatedFormaPagamentoId={setUpdatedFormaPagamentoId}
+          condicaoPagamentoId={condicaoPagamentoId}
+          setCondicaoPagamentoId={setCondicaoPagamentoId}
+          updatedCondicaoPagamentoId={updatedCondicaoPagamentoId}
+          setUpdatedCondicaoPagamentoId={setUpdatedCondicaoPagamentoId}
+          inscricaoMunicipal={inscricaoMunicipal}
+          setInscricaoMunicipal={setInscricaoMunicipal}
+          updatedInscricaoMunicipal={updatedInscricaoMunicipal}
+          setUpdatedInscricaoMunicipal={setUpdatedInscricaoMunicipal}
+          clearForm={clearForm}
+          handleSave={handleSave}
+          setIsDialogOpen={setIsDialogOpen}
         />
+      )} 
 
-        {/* CPF/CNPJ */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          CPF/CNPJ:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedCpfCnpj : cpfCnpj}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCpfCnpj(e.target.value)
-              : setCpfCnpj(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Telefone */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Telefone:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedTelefone : telefone}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedTelefone(e.target.value)
-              : setTelefone(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* E-mail */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          E-mail:
-        </label>
-        <input
-          type="email"
-          value={currentSupplier ? updatedEmail : email}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedEmail(e.target.value)
-              : setEmail(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* RG/Inscrição Estadual */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          RG/Inscrição Estadual:
-        </label>
-        <input
-          type="text"
-          value={
-            currentSupplier ? updatedRgInscricaoEstadual : rgInscricaoEstadual
-          }
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedRgInscricaoEstadual(e.target.value)
-              : setRgInscricaoEstadual(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Tipo */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Tipo:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedTipo : tipo}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedTipo(e.target.value)
-              : setTipo(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-{/* Ativo */}
-<label className="block text-sm font-medium text-gray-700 mt-4">
-          Tipo:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedAtivo : ativo}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedAtivo(e.target.value)
-              : setAtivo(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-
-        {/* Optante pelo Simples */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Optante pelo Simples:
-        </label>
-        <input
-          type="checkbox"
-          checked={currentSupplier ? updatedOptanteSimples : optanteSimples}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedOptanteSimples(e.target.checked)
-              : setOptanteSimples(e.target.checked)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Limite de Crédito */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Limite de Crédito:
-        </label>
-        <input
-          type="number"
-          value={currentSupplier ? updatedLimiteCredito : limiteCredito}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedLimiteCredito(e.target.value)
-              : setLimiteCredito(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Número PIS/PASEP/NIT */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Número PIS/PASEP/NIT:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedNumeroPisPasepNit : numeroPisPasepNit}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedNumeroPisPasepNit(e.target.value)
-              : setNumeroPisPasepNit(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* CEP */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          CEP:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedCep : cep}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCep(e.target.value)
-              : setCep(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Cidade */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Cidade:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedCidade : cidade}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCidade(e.target.value)
-              : setCidade(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* UF */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          UF:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedUf : uf}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedUf(e.target.value)
-              : setUf(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Logradouro */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Logradouro:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedLogradouro : logradouro}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedLogradouro(e.target.value)
-              : setLogradouro(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Número */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Número:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedNumero : numero}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedNumero(e.target.value)
-              : setNumero(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Bairro */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Bairro:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedBairro : bairro}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedBairro(e.target.value)
-              : setBairro(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Complemento */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Complemento:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedComplemento : complemento}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedComplemento(e.target.value)
-              : setComplemento(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Código IBGE */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Código IBGE:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedCodigoIbge : codigoIbge}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCodigoIbge(e.target.value)
-              : setCodigoIbge(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Nome Fantasia */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Nome Fantasia:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedNomeFantasia : nomeFantasia}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedNomeFantasia(e.target.value)
-              : setNomeFantasia(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Atividade */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Atividade:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedAtividade : atividade}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedAtividade(e.target.value)
-              : setAtividade(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* CRT */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          CRT:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedCrt : crt}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCrt(e.target.value)
-              : setCrt(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Liberado */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Liberado:
-        </label>
-        <input
-          type="checkbox"
-          checked={currentSupplier ? updatedLiberado : liberado}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedLiberado(e.target.checked)
-              : setLiberado(e.target.checked)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Desconto */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Desconto:
-        </label>
-        <input
-          type="number"
-          value={currentSupplier ? updatedDesconto : desconto}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedDesconto(e.target.value)
-              : setDesconto(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Forma de Pagamento */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Forma de Pagamento:
-        </label>
-        <input
-          type="text"
-          value={currentSupplier ? updatedFormaPagamentoId : formaPagamentoId}
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedFormaPagamentoId(e.target.value)
-              : setFormaPagamentoId(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Condição de Pagamento */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Condição de Pagamento:
-        </label>
-        <input
-          type="text"
-          value={
-            currentSupplier ? updatedCondicaoPagamentoId : condicaoPagamentoId
-          }
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedCondicaoPagamentoId(e.target.value)
-              : setCondicaoPagamentoId(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-
-        {/* Inscrição Municipal */}
-        <label className="block text-sm font-medium text-gray-700 mt-4">
-          Inscrição Municipal:
-        </label>
-        <input
-          type="text"
-          value={
-            currentSupplier ? updatedInscricaoMunicipal : inscricaoMunicipal
-          }
-          onChange={(e) =>
-            currentSupplier
-              ? setUpdatedInscricaoMunicipal(e.target.value)
-              : setInscricaoMunicipal(e.target.value)
-          }
-          className="mt-1 px-3 py-2 border shadow-sm block w-full sm:text-sm border-gray-300 rounded-md"
-        />
-      </div>
-
-      <div className="mt-6 flex justify-end">
-        <Button className="mr-2" onClick={clearForm}>
-          Cancelar
-        </Button>
-        <Button onClick={handleSave}>
-          {currentSupplier ? "Atualizar" : "Cadastrar"}
-        </Button>
-      </div>
-
-      {/* Modal de exclusão */}
       {isDeleteModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
-          <div className="bg-white rounded-lg p-6 shadow-lg">
-            <h3 className="text-lg font-medium text-gray-900">Excluir Item</h3>
-            <p className="text-sm text-gray-500 mt-2">
-              Tem certeza que deseja excluir este almoxarifado? Esta ação não
-              pode ser desfeita.
-            </p>
-            <div className="mt-4 flex justify-end">
-              <button
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"
-                onClick={confirmDelete}
-              >
-                Confirmar
-              </button>
-              <button
-                className="ml-2 px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
-                onClick={() => setIsDeleteModalOpen(false)}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </div>
+        <AlertDelete
+          confirmDelete={confirmDelete}
+          isDeleteModalOpen={isDeleteModalOpen}
+        />
       )}
     </div>
   );

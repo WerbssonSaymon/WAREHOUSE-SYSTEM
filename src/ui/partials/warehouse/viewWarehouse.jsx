@@ -1,5 +1,6 @@
 import React from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 export default function viewWarehouse({
     currentWarehouses,
@@ -33,7 +34,7 @@ export default function viewWarehouse({
                 onClick={() => toggleDropdown(warehouse.id)}
                 className="inline-flex justify-center w-5 rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50"
               >
-                ...
+                <BsThreeDotsVertical/>
               </button>
             </td>
             {dropdownOpenId === warehouse.id && (
