@@ -8,6 +8,11 @@ export default function viewSupplier({
   dropdownOpenId,
   toggleDropdown
 }) {
+
+  const activeMap = {
+    true: "sim",
+    false: "não",
+  }
   return (
     <tbody>
       {currentSuppliers.length > 0 ? (
@@ -43,7 +48,7 @@ export default function viewSupplier({
             </td>
             <td className="py-2 px-4">
               <div className=" text-left text-sm font-medium">
-                {supplier.ativo}
+                {activeMap[supplier.ativo] || "Desconhecido"}
               </div>
             </td>
             <td>
